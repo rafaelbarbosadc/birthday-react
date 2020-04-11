@@ -137,7 +137,10 @@ textarea::placeholder {
 }
 .messagesContainer {
   display: flex;
-  width: 100%;
+  width: 70%;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 25px;
 }
 
 /* New tweets */

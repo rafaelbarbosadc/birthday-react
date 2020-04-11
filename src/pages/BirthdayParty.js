@@ -102,9 +102,9 @@ export default function BirthdayParty() {
       </form>
       <div className="newTweets">You have 1 new tweet</div>
       <div className="messagesContainer">
-        {/* {messages.map((message) => (
-          <BirthdayCard name={message.name} message={message.message} />
-        ))} */}
+        {messages.map((message) => (
+          <Tweet name={message.name} message={message.message} />
+        ))}
       </div>
     </div>
   );
