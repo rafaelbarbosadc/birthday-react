@@ -7,9 +7,16 @@ export default function BirthdayParty() {
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
   const [tweetLength, setTweetLength] = useState(140);
+  const [newTweets, setNewTweets] = useState(140);
 
   async function getMessages() {
+    console.log("getting messages");
     const { data: messages } = await api.get("/messages");
+    setMessages(messages);
+  }
+
+  async function updateMessages() {
+    const { data: newMessages } = await api.get("/messages");
     setMessages(messages);
   }
 
@@ -26,6 +33,9 @@ export default function BirthdayParty() {
 
   useEffect(() => {
     getMessages();
+    setInterval(() => {
+      updateMessages();
+    }, 5 * 1000);
   }, []);
 
   return (
