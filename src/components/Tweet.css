@@ -1,16 +1,26 @@
 .tweet {
-  border: 1px solid red;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #fff;
   width: 30%;
-  border: 1px solid #ccc;
   border-radius: 6px;
-  padding: 10px 25px 5px 25px;
+  padding: 15px 25px 5px 10px;
   margin: 10px 15px;
   line-height: 1.3125;
   color: #fff;
 }
 
-.tweet.name {
+.tweetContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 10px;
+  word-break: break-all;
+}
+
+.name {
   font-weight: bold;
+  padding: ;
 }
 
 .bottom-buttons {
@@ -24,6 +34,22 @@
   fill: #55abee;
 }
 
+.tweet .bottom-buttons > *:first-child {
+  margin-left: 0px;
+}
+
 .bottom-buttons > *:hover {
   cursor: pointer;
+}
+
+.tweetImg {
+  /* border: 1px solid red; */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: url("../assets/cake.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 35px;
 }
