@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import api from "../services/api";
 import "./BirthdayParty.css";
 import Tweet from "../components/Tweet";
@@ -12,16 +12,28 @@ export default function BirthdayParty() {
   const getMessages = async () => {
     console.log("getting messages");
     const { data: messages } = await api.get("/messages");
+    const newMessages = messages.map((item) => {
+      let time_ago = new Date(Date.now()) - new Date(item.createdAt).getTime();
+      time_ago = Math.floor(time_ago / 1000 / 60);
+      if (time_ago < 1) item.time_ago = "now";
+      else if (time_ago > 1 && time_ago < 60) item.time_ago = `${time_ago}min`;
+      else if (time_ago > 60) item.time_ago = `${Math.floor(time_ago / 60)}h`;
+      else if (time_ago > 60 * 24)
+        item.time_ago = `${Math.floor(time_ago / 60 / 24)}d`;
+      else item.time_ago = time_ago;
+      return item;
+    });
+    console.log(newMessages);
     setMessages(messages);
+    setNewTweets(0);
   };
 
   const createMessage = async (e) => {
     e.preventDefault();
-    setMessage("");
-    setName("");
     const obj = { name, message };
     await api.post("/messages", obj);
-    getMessages();
+    setMessage("");
+    setName("");
   };
 
   useEffect(() => {
@@ -30,13 +42,35 @@ export default function BirthdayParty() {
 
   useEffect(() => {
     getMessages();
-    setInterval(() => {
-      updateMessages();
-    }, 500);
   }, []);
 
-  const updateMessages = () => {
-    console.log(messages);
+  function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }
+
+  useInterval(() => {
+    updateMessages();
+  }, 5000);
+
+  const updateMessages = async () => {
+    console.log("checking for new messages");
+    const { data: newMessages } = await api.get("/messages");
+    const diff = newMessages.length - messages.length;
+    setNewTweets(diff);
   };
 
   return (
@@ -58,10 +92,12 @@ export default function BirthdayParty() {
           type="text"
           name="name"
           placeholder="Your Twitter @"
+          value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <textarea
           name="message"
+          value={message}
           placeholder="Wish Camile a happy birthday!"
           onChange={(e) => setMessage(e.target.value)}
         />
@@ -111,10 +147,18 @@ export default function BirthdayParty() {
           </div>
         </div>
       </form>
-      <div className="newTweets">You have {newTweets} new tweet</div>
+      {newTweets > 0 ? (
+        <div className="newTweets" onClick={getMessages}>
+          You have {newTweets} new tweet(s)
+        </div>
+      ) : null}
       <div className="messagesContainer">
         {messages.map((message) => (
-          <Tweet name={message.name} message={message.message} />
+          <Tweet
+            name={message.name}
+            message={message.message}
+            time_ago={message.time_ago}
+          />
         ))}
       </div>
     </div>

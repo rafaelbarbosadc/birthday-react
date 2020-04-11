@@ -137,7 +137,7 @@ textarea::placeholder {
 }
 .messagesContainer {
   display: flex;
-  width: 70%;
+  width: 100%;
   justify-content: flex-start;
   flex-wrap: wrap;
   margin-top: 25px;
