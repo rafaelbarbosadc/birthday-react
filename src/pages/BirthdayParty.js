@@ -7,25 +7,22 @@ export default function BirthdayParty() {
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
   const [tweetLength, setTweetLength] = useState(140);
-  const [newTweets, setNewTweets] = useState(140);
+  const [newTweets, setNewTweets] = useState(0);
 
-  async function getMessages() {
+  const getMessages = async () => {
     console.log("getting messages");
     const { data: messages } = await api.get("/messages");
     setMessages(messages);
-  }
+  };
 
-  async function updateMessages() {
-    const { data: newMessages } = await api.get("/messages");
-    setMessages(messages);
-  }
-
-  async function createMessage(e) {
+  const createMessage = async (e) => {
     e.preventDefault();
+    setMessage("");
+    setName("");
     const obj = { name, message };
     await api.post("/messages", obj);
     getMessages();
-  }
+  };
 
   useEffect(() => {
     setTweetLength(140 - message.length);
@@ -35,8 +32,12 @@ export default function BirthdayParty() {
     getMessages();
     setInterval(() => {
       updateMessages();
-    }, 5 * 1000);
+    }, 500);
   }, []);
+
+  const updateMessages = () => {
+    console.log(messages);
+  };
 
   return (
     <div className="container">
@@ -110,7 +111,7 @@ export default function BirthdayParty() {
           </div>
         </div>
       </form>
-      <div className="newTweets">You have 1 new tweet</div>
+      <div className="newTweets">You have {newTweets} new tweet</div>
       <div className="messagesContainer">
         {messages.map((message) => (
           <Tweet name={message.name} message={message.message} />
