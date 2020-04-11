@@ -1,13 +1,21 @@
 .tweet {
   display: flex;
   flex-direction: row;
-  border: 1px solid #fff;
+  border: 1px solid #3d5466;
   width: 30%;
   border-radius: 6px;
   padding: 15px 25px 5px 10px;
   margin: 10px 15px;
   line-height: 1.3125;
   color: #fff;
+  max-height: 500px;
+}
+
+@media (max-width: 600px) {
+  .tweet {
+    width: 100%;
+    margin: 10px 0px;
+  }
 }
 
 .tweetContent {
