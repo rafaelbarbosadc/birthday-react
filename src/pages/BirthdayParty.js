@@ -16,7 +16,7 @@ export default function BirthdayParty() {
       let time_ago = new Date(Date.now()) - new Date(item.createdAt).getTime();
       time_ago = Math.floor(time_ago / 1000 / 60);
       if (time_ago < 1) item.time_ago = "now";
-      else if (time_ago > 1 && time_ago < 60) item.time_ago = `${time_ago}min`;
+      else if (time_ago >= 1 && time_ago < 60) item.time_ago = `${time_ago}min`;
       else if (time_ago > 60) item.time_ago = `${Math.floor(time_ago / 60)}h`;
       else if (time_ago > 60 * 24)
         item.time_ago = `${Math.floor(time_ago / 60 / 24)}d`;
