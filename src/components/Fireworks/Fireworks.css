@@ -1,6 +1,3 @@
-body {
-}
-
 .pyro > .before,
 .pyro > .after {
   transition: all 2s ease-in-out;
