@@ -33,6 +33,7 @@
 .tweetContent {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 100%;
   margin-left: 10px;
   word-break: normal;

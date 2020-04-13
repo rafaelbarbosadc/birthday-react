@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Tweet.css";
 
 export default function Tweet({ name, message, time_ago }) {
@@ -6,10 +6,12 @@ export default function Tweet({ name, message, time_ago }) {
     <div className="tweet">
       <div className="tweetImg"></div>
       <div className="tweetContent">
-        <div className="name">
-          {name} · {time_ago}{" "}
+        <div>
+          <div className="name">
+            {name} · {time_ago}{" "}
+          </div>
+          <div className="message">{message}</div>
         </div>
-        <div className="message">{message}</div>
         <div className="bottom-buttons">
           <svg
             viewBox="0 0 24 24"

@@ -20,7 +20,8 @@ export default function BirthdayParty() {
       time_ago = Math.floor(time_ago / 1000 / 60);
       if (time_ago < 1) item.time_ago = "now";
       else if (time_ago >= 1 && time_ago < 60) item.time_ago = `${time_ago}min`;
-      else if (time_ago > 60) item.time_ago = `${Math.floor(time_ago / 60)}h`;
+      else if (time_ago > 60 && time_ago < 60 * 24)
+        item.time_ago = `${Math.floor(time_ago / 60)}h`;
       else if (time_ago > 60 * 24)
         item.time_ago = `${Math.floor(time_ago / 60 / 24)}d`;
       else item.time_ago = time_ago;
@@ -151,7 +152,7 @@ export default function BirthdayParty() {
             </div>
             <div className="tweetContainer">
               <div className="tweetLength">{tweetLength}</div>
-              <button type="submit">Tweetar</button>
+              <button type="submit">Tweet</button>
             </div>
           </div>
         </form>
