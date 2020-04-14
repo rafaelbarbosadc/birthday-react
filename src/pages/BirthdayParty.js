@@ -27,7 +27,7 @@ export default function BirthdayParty() {
       else item.time_ago = time_ago;
       return item;
     });
-    setMessages(messages);
+    setMessages(newMessages);
     setNewTweets(0);
     setTimeout(() => {
       setFireworks(false);
@@ -85,7 +85,11 @@ export default function BirthdayParty() {
       {fireworks ? <Fireworks /> : null}
       <div className="container">
         <div className="header">
-          <img className="headerImg" src={require("../assets/camile.jpeg")} />
+          <img
+            alt="header-img"
+            className="headerImg"
+            src={require("../assets/camile.jpeg")}
+          />
           ℭ𝔞𝔪𝔰
           <div className="profileInfoContainer">
             <div>
